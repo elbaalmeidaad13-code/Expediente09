@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b10">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>EXPEDIENTE 09 — La última llamada</title>
+<style>
+:root{--bg:#090b10;--panel:#151a22;--panel2:#202733;--ink:#f0ece5;--muted:#a6a9ae;--gold:#c5a675;--red:#9e3b43;--line:#394250;--blue:#71889b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);background:radial-gradient(ellipse at 50% -15%,#2b313b 0%,#11151d 44%,#07080c 100%)}
+button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#app{max-width:1000px;margin:auto;min-height:100dvh;display:flex;flex-direction:column}
+header{position:sticky;top:0;z-index:8;background:#090b10e8;backdrop-filter:blur(12px);border-bottom:1px solid #343b47;padding:11px 15px;display:flex;justify-content:space-between;align-items:center}
+.brand{font:700 11px Arial,sans-serif;letter-spacing:.19em;color:#d9c49e}.chapterhead{text-align:right;color:#aeb2b8;font:10px Arial,sans-serif;letter-spacing:.1em}
+main{padding:13px;display:flex;flex-direction:column;gap:12px;flex:1}.screen{display:none}.screen.active{display:block}
+.hero{min-height:78dvh;border:1px solid #49515d;border-radius:10px;overflow:hidden;padding:clamp(23px,6vw,58px);display:flex;flex-direction:column;justify-content:flex-end;position:relative;background:linear-gradient(0deg,#07090ef7 0%,#07090e70 58%,#07090e20),radial-gradient(ellipse at 68% 28%,#75808a 0%,#3c4652 17%,transparent 42%),linear-gradient(120deg,#151a23,#303945 53%,#080a0e)}
+.hero:before{content:"";position:absolute;inset:0;opacity:.5;background:repeating-linear-gradient(90deg,transparent 0 49px,#ffffff09 50px 51px),linear-gradient(90deg,transparent 48%,#07090e77 49%,transparent 52%)}
+.hero>*{position:relative}.eyebrow{font:10px Arial,sans-serif;letter-spacing:.25em;color:var(--gold);text-transform:uppercase}
+h1{font-size:clamp(39px,10vw,82px);line-height:.91;margin:14px 0;text-transform:uppercase;letter-spacing:-.045em;text-shadow:0 6px 25px #000}
+.subtitle{font:14px/1.65 Arial,sans-serif;color:#d4d4d2;max-width:570px}
+.btn{border:1px solid #806c4f;background:linear-gradient(#914047,#55272d);padding:13px 17px;border-radius:4px;font:700 11px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;margin:6px 7px 0 0}
+.btn.secondary{background:#202833;border-color:#4a5665}.btn.ghost{background:transparent;border-color:#596473}.btn:disabled{opacity:.35;cursor:not-allowed}
+.scene{height:clamp(280px,48vw,455px);position:relative;border:1px solid #46505d;border-radius:9px;overflow:hidden;background:#171d27}
+.scene:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#06080df2 0%,transparent 63%),linear-gradient(90deg,#080b11aa,transparent 35%,#080b1166),var(--scene-bg);transition:filter .3s}
+.scene:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 30%,#c5d7e51b 50%,transparent 68%);animation:flash 8s infinite}
+@keyframes flash{0%,76%,100%{opacity:0}78%{opacity:.7}80%{opacity:0}85%{opacity:.2}87%{opacity:0}}
+.scene[data-scene="hall"]{--scene-bg:repeating-linear-gradient(90deg,#171d27 0 13%,#37404b 13.5% 14.5%,#202833 15% 29%),radial-gradient(ellipse at 60% 22%,#77818b66,transparent 42%)}
+.scene[data-scene="study"]{--scene-bg:linear-gradient(90deg,#171a20 0 18%,#4a3b32 19% 20%,#20232a 21% 74%,#574238 75% 76%,#151922 77%),radial-gradient(ellipse at 52% 55%,#843b4055,transparent 28%)}
+.scene[data-scene="library"]{--scene-bg:repeating-linear-gradient(90deg,#241d18 0 12%,#66503a 12.5% 13.5%,#30251e 14% 25%),radial-gradient(ellipse at 55% 25%,#b58b5b55,transparent 43%)}
+.scene[data-scene="basement"]{--scene-bg:linear-gradient(90deg,#11151c,#33343a 48%,#11151c),repeating-linear-gradient(0deg,transparent 0 40px,#d0d0d010 41px)}
+.scene[data-scene="storm"]{--scene-bg:repeating-linear-gradient(110deg,transparent 0 19px,#a8c4dc20 20px 21px),radial-gradient(ellipse at 75% 25%,#4a627a,#1c2837 48%,#090e16)}
+.scene[data-scene="interview"]{--scene-bg:radial-gradient(ellipse at 50% 25%,#53606c,#1a202a 55%,#0a0d12)}
+.scene-title{position:absolute;left:17px;bottom:15px;z-index:2}.scene-title small{font:10px Arial,sans-serif;letter-spacing:.18em;color:var(--gold)}.scene-title h2{font-size:clamp(23px,5vw,34px);margin:4px 0;text-shadow:0 3px 18px #000}
+.hotspot{position:absolute;z-index:3;width:43px;height:43px;border:1px solid #ddc58eaa;border-radius:50%;background:#10151cbb;display:grid;place-items:center;font:17px Arial,sans-serif;backdrop-filter:blur(4px);box-shadow:0 0 18px #0009}
+.hotspot:after{content:"";position:absolute;inset:-5px;border:1px solid #ddc58e55;border-radius:50%;animation:pulse 2.2s infinite}
+@keyframes pulse{50%{transform:scale(1.2);opacity:.2}}
+.panel{background:linear-gradient(145deg,#1b222d,#12161e);border:1px solid var(--line);border-radius:8px;padding:14px}
+.dialogue{display:flex;gap:12px;align-items:flex-start}.portrait{width:54px;height:65px;flex:0 0 54px;border:1px solid #907b5b;border-radius:4px;background:linear-gradient(145deg,#65717e,#202630);display:grid;place-items:center;font:700 20px Arial,sans-serif;color:#f0d5a5;position:relative;overflow:hidden}
+.portrait:after{content:"";position:absolute;inset:50% 0 0;background:linear-gradient(transparent,#090b10aa)}
+.speaker{font:700 10px Arial,sans-serif;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;margin:2px 0 7px}.line{font-size:16px;line-height:1.52}
+.choices{display:grid;gap:7px;margin-top:13px}.choice{width:100%;text-align:left;padding:12px 13px;background:#232c39;border:1px solid #485363;border-radius:4px;font:13px/1.45 Arial,sans-serif}.choice:active{background:#354253}.choice small{display:block;color:#aeb6c1;margin-top:3px}
+.actions{display:flex;flex-wrap:wrap;gap:7px}.tool{flex:1;min-width:105px;padding:10px 8px;background:#151b24;border:1px solid #414b59;border-radius:4px;font:10px Arial,sans-serif;color:#d9dce0}.tool strong{display:block;color:var(--gold);font-size:10px;letter-spacing:.08em;margin-bottom:4px}
+.progress{height:3px;background:#343c48;border-radius:8px;overflow:hidden;margin-top:8px}.progress span{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.muted{font:12px/1.55 Arial,sans-serif;color:var(--muted)}.tag{display:inline-block;padding:4px 7px;border:1px solid #736044;color:#dbc69e;font:9px Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;margin:2px}
+footer{padding:9px 14px 18px;display:flex;justify-content:space-between;color:#858b94;font:9px Arial,sans-serif;letter-spacing:.08em}
+.modal{position:fixed;inset:0;z-index:20;background:#030407eF;display:none;align-items:flex-end;justify-content:center;padding:10px}.modal.show{display:flex}.modalbox{width:min(100%,720px);max-height:86dvh;overflow:auto;background:#171d27;border:1px solid #657080;border-radius:9px;padding:16px;box-shadow:0 20px 70px #000}
+.modalhead{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #394351;padding-bottom:8px;margin-bottom:8px}.modalhead h3{margin:0;font-size:21px}.close{background:#202833;border:1px solid #596575;padding:7px 10px;border-radius:3px}
+.listrow{padding:10px 0;border-bottom:1px solid #343d49;font:12px/1.55 Arial,sans-serif}.listrow:last-child{border:0}.listrow b{color:#e7d4b3}.evidence{display:flex;justify-content:space-between;gap:8px;align-items:center}.evidence button{padding:7px 9px;background:#283342;border:1px solid #586477;border-radius:3px;font:10px Arial}
+input{width:100%;padding:12px;background:#0a0e14;border:1px solid #667180;color:white;border-radius:3px;font-size:16px;margin:7px 0}
+@media(min-width:720px){main{padding:22px}.modal{align-items:center}.hero{min-height:690px}}
+</style>
+</head>
+<body>
+<div id="app">
+<header><div class="brand">EXPEDIENTE 09 <span style="color:#697583">/</span> ARCHIVO CRIMINAL</div><div class="chapterhead" id="chapterHead">ARCHIVO CLASIFICADO</div></header>
+<main>
+<section class="screen active" id="menu">
+<div class="hero">
+<div class="eyebrow">Caso 09 · Acceso restringido · 18+</div><h1>La última<br>llamada</h1>
+<p class="subtitle">Una mansión aislada. Cinco sospechosos. Una habitación cerrada desde dentro. Y una llamada recibida nueve minutos después de la muerte.</p>
+<div><button class="btn" onclick="newGame()">Comenzar investigación</button><button class="btn secondary" id="continue" onclick="continueGame()" style="display:none">Continuar partida</button></div>
+<p class="muted" style="margin-top:24px;max-width:540px">Aventura gráfica cinematográfica para dos jugadoras. Alterna entre Nayara y Elba, explora los escenarios, examina pruebas y decide en quién confiar. Recomendado jugar con auriculares y pasar el dispositivo durante los turnos.</p>
+</div>
+</section>
+<section class="screen" id="game">
+<div class="scene" id="scene" data-scene="hall">
+<div id="hotspots"></div><div class="scene-title"><small id="location"></small><h2 id="sceneTitle"></h2></div>
+</div>
+<div class="panel">
+<div class="dialogue"><div class="portrait" id="portrait">N</div><div style="flex:1"><div class="speaker" id="speaker">Nayara</div><div class="line" id="text"></div></div></div>
+<div class="choices" id="choices"></div>
+</div>
+<div class="actions">
+<button class="tool" onclick="openPanel('inventory')"><strong>▣ INVENTARIO</strong><span id="clueCount">0 pruebas</span></button>
+<button class="tool" onclick="openPanel('journal')"><strong>▤ DIARIO</strong>Registro de hallazgos</button>
+<button class="tool" onclick="openPanel('board')"><strong>⌘ TABLERO</strong>Conexiones</button>
+<button class="tool" onclick="openPanel('suspects')"><strong>♙ SOSPECHOSOS</strong>Personas</button>
+</div>
+<div class="panel"><div style="display:flex;justify-content:space-between"><span class="muted" id="chapter">CAPÍTULO 1 DE 7</span><span class="muted" id="percent">0%</span></div><div class="progress"><span id="bar"></span></div></div>
+<div class="actions"><button class="btn secondary" onclick="openPanel('map')">Mapa</button><button class="btn ghost" id="sound" onclick="toggleSound()">Sonido: activado</button><button class="btn ghost" onclick="save()">Guardar partida</button><button class="btn ghost" onclick="switchLead()">Cambiar investigadora</button></div>
+</section>
+<section class="screen" id="ending"><div class="hero"><div class="eyebrow">Expediente cerrado</div><h1 id="endTitle">La verdad</h1><p class="subtitle" id="endText"></p><div id="endStats" class="muted"></div><button class="btn" onclick="newGame()">Volver a investigar</button><button class="btn secondary" onclick="toMenu()">Menú principal</button></div></section>
+</main>
+<footer><span>FICCIÓN INTERACTIVA · 18+</span><span>GUARDADO LOCAL EN ESTE DISPOSITIVO</span></footer>
+</div>
+<div class="modal" id="modal" onclick="if(event.target===this)closePanel()"><div class="modalbox"><div class="modalhead"><h3 id="modalTitle">Archivo</h3><button class="close" onclick="closePanel()">Cerrar ✕</button></div><div id="modalBody"></div></div></div>
+<script>
+const $=id=>document.getElementById(id);
+const clues={
+clock:{n:"Reloj detenido",d:"El reloj de sobremesa marca las 03:17. El mecanismo está intacto: alguien movió las agujas a mano y rompió el cristal desde fuera."},
+glass:{n:"Copa de cristal",d:"En el borde hay restos de un sedante veterinario. La huella parcial no pertenece a Adrián."},
+phone:{n:"Teléfono de Adrián",d:"A las 03:26 recibió una llamada desde la extensión interna 09. La llamada duró siete segundos y fue respondida."},
+photo:{n:"Fotografía quemada",d:"Tres adultos frente a la mansión en 2009. El rostro de una cuarta persona fue raspado de la emulsión."},
+note:{n:"Nota bajo la alfombra",d:"«El archivo no está donde lo dejamos. Pregunta por el invierno de 2009»."},
+window:{n:"Alféizar húmedo",d:"La ventana parece cerrada desde dentro, pero una fina línea de polvo está interrumpida. Se abrió antes de la tormenta."},
+thread:{n:"Fibra azul",d:"Un hilo de lana azul queda atrapado en el pestillo. La fibra coincide con el abrigo de Mateo, aunque también con una manta del salón."},
+foot:{n:"Huella en el pasillo",d:"Una huella estrecha con barro arcilloso. No procede del jardín: el barro es de la zona de obras junto a la antigua capilla."},
+key:{n:"Llave de latón 09",d:"Pequeña llave numerada. Tiene polvo reciente en los dientes y una muesca que coincide con el panel de la biblioteca."},
+tape:{n:"Cinta de audio 09",d:"Una voz femenina dice: «No fue a las tres y diecisiete. Cambiaron el reloj. Adrián quería confesarlo»."},
+ledger:{n:"Libro de cuentas",d:"Pagos periódicos a la Clínica Santa Irene, cerrada en 2010. El último pago está fechado tres días antes de la muerte."},
+letter:{n:"Carta de Adrián",d:"«No hubo una cuarta persona», escribió Adrián en 2009. La tinta sobre la última frase es distinta: «Si vuelve, se lo contaré todo»."},
+card:{n:"Tarjeta de servicio",d:"La tarjeta abre la puerta del sótano y registra el uso de la extensión 09. Su banda magnética fue borrada parcialmente."},
+report:{n:"Informe médico",d:"El informe preliminar sitúa la muerte entre las 02:40 y las 03:05. La hora 03:17 no tiene base forense."},
+record:{n:"Registro de centralita",d:"La extensión 09 está físicamente desconectada desde hace seis años. La llamada entrante fue enrutada desde el viejo cuadro del sótano."},
+bracelet:{n:"Pulsera de Inés",d:"La pulsera tiene una mancha de grasa del cuadro eléctrico. Inés asegura que nunca bajó al sótano."}
+};
+const suspectInfo={
+Mateo:{role:"Mayordomo · 58 años",desc:"Lleva veinte años en la casa. Voz baja, modales impecables y una memoria extraordinaria para los horarios. Dice que no entró en el estudio."},
+Vera:{role:"Expareja · 39 años",desc:"Fue la última persona que discutió públicamente con Adrián. Guarda una llave antigua y evita hablar de 2009."},
+Inés:{role:"Amiga de la víctima · 34 años",desc:"Médica de urgencias. Afirma que se marchó antes de medianoche. Su coartada tiene un hueco de cuarenta minutos."},
+Bruno:{role:"Hermano · 45 años",desc:"Arruinado por una deuda que Adrián se negó a pagar. Tiene una coartada parcial registrada en una gasolinera."},
+Saúl:{role:"Periodista · 41 años",desc:"Investigaba el accidente de 2009. Grabó conversaciones sin permiso y entró en la mansión buscando documentos."}
+};
+let S;
+function fresh(){return {node:"intro",lead:"Nayara",clues:[],notes:[],flags:{},talked:[],sound:true,decisions:[],chapter:1,elapsed:0}}
+function newGame(){S=fresh();show("game");render();save()}
+function continueGame(){try{S=JSON.parse(localStorage.getItem("exp09complete"))||fresh()}catch(e){S=fresh()}show("game");render()}
+function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active"));$(id).classList.add("active")}
+function save(){if(S){localStorage.setItem("exp09complete",JSON.stringify(S));$("continue").style.display="inline-block"}}
+function toMenu(){show("menu")}
+function addClue(id){if(!S.clues.includes(id)){S.clues.push(id);S.notes.push("Prueba incorporada: "+clues[id].n);beep(620,.12);save()}render();modalText(clues[id].n,clues[id].d+"<br><br><span class='tag'>PRUEBA REGISTRADA</span>")}
+function note(t){S.notes.push(t);save()}
+function switchLead(){S.lead=S.lead==="Nayara"?"Elba":"Nayara";beep(420,.08);render()}
+function toggleSound(){S.sound=!S.sound;$("sound").textContent="Sonido: "+(S.sound?"activado":"desactivado");save()}
+let audioCtx=null;
+function beep(freq=440,dur=.1){if(!S?.sound)return;try{audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type="sine";o.frequency.value=freq;g.gain.setValueAtTime(.045,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+dur);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+dur)}catch(e){}}
+function modalText(t,b){$("modalTitle").textContent=t;$("modalBody").innerHTML="<p class='muted'>"+b+"</p>";$("modal").classList.add("show")}
+function closePanel(){$("modal").classList.remove("show")}
+function openPanel(which){
+let t="",b="";
+if(which==="inventory"){t="Inventario de pruebas";b=S.clues.length?S.clues.map(id=>`<div class="listrow"><b>${clues[id].n}</b><br>${clues[id].d}</div>`).join(""):"<p class='muted'>Aún no habéis recogido pruebas. Tocad los puntos de interés de los escenarios.</p>"}
+if(which==="journal"){t="Diario de investigación";b=S.notes.length?S.notes.map((x,i)=>`<div class="listrow"><span class="tag">${String(i+1).padStart(2,"0")}</span> ${x}</div>`).join(""):"<p class='muted'>El diario está vacío.</p>"}
+if(which==="suspects"){t="Personas bajo investigación";b=Object.entries(suspectInfo).map(([n,x])=>`<div class="listrow"><b>${n}</b> · ${x.role}<br>${x.desc}<br><span class="tag">${S.talked.includes(n)?"INTERROGADO":"PENDIENTE"}</span></div>`).join("")}
+if(which==="map"){t="Plano de la mansión";b="<div class='listrow'><b>PLANTA BAJA</b><br>Vestíbulo · Salón · Estudio · Biblioteca</div><div class='listrow'><b>PLANTA SUPERIOR</b><br>Galería norte · Dormitorios · Despacho de invitados</div><div class='listrow'><b>SÓTANO</b><br>Cuadro eléctrico · Archivo 09 · Antigua sala de servicio</div><p class='muted'>El mapa se completa a medida que descubrís accesos y pasadizos.</p>"}
+if(which==="board"){t="Tablero de investigación";let checks=[["La hora de la muerte","clock","report"],["La llamada imposible","phone","record"],["El acceso al archivo","key","card"],["El secreto de 2009","photo","letter"]];b="<p class='muted'>Relacionad cada hipótesis con dos pruebas. Las conexiones se iluminan al reunir ambas.</p>"+checks.map(([label,a,c])=>`<div class="listrow"><b>${label}</b><br><span class="tag">${S.clues.includes(a)?"✓ "+clues[a].n:"Falta: "+clues[a].n}</span> <span class="tag">${S.clues.includes(c)?"✓ "+clues[c].n:"Falta: "+clues[c].n}</span></div>`).join("")}
+$("modalTitle").textContent=t;$("modalBody").innerHTML=b;$("modal").classList.add("show")
+}
+const nodes={
+intro:{ch:1,scene:"hall",loc:"CARRETERA A LA MANSIÓN · 03:26",title:"La llamada",who:"Nayara",text:"El teléfono vibra en mitad de la carretera. Una voz masculina, casi inaudible, pronuncia dos palabras: «Ya ha empezado». Después, un golpe seco. La llamada se corta. En la pantalla aparece una dirección: Mansión Valcárcel.",choices:[["Escuchar el mensaje otra vez","modal","Una respiración agitada precede a un sonido metálico. Al fondo se oyen tres campanadas, aunque el reloj de la ciudad marca las tres y veintiséis."],["Llegar a la mansión","next","arrival"]]},
+arrival:{ch:1,scene:"hall",loc:"MANSIÓN VALCÁRCEL · 03:34",title:"El vestíbulo",who:"Elba",text:"La casa parece vacía. Mateo, el mayordomo, espera al pie de la escalera. Tiene una pequeña mancha de barro en el puño. «El señor está en el estudio. La puerta está cerrada por dentro», dice.",hot:[["door","⌑","La puerta del estudio"],["clock","◷","El reloj del vestíbulo"],["portrait","▧","El retrato familiar"]],choices:[["Examinar el reloj","clue","clock"],["Examinar el retrato","clue","photo"],["Hablar con Mateo","talk","Mateo"],["Entrar en el estudio","next","study"]]},
+study:{ch:1,scene:"study",loc:"ESTUDIO · ESCENA PRINCIPAL",title:"La habitación cerrada",who:"Nayara",text:"Adrián Valcárcel yace junto al escritorio. No hay una escena explícita, solo una mancha oscura en la alfombra y una copa rota. La ventana está cerrada. El pestillo parece echado desde dentro.",hot:[["glass","◉","La copa rota"],["phone","▣","El teléfono móvil"],["window","▧","La ventana"],["carpet","⌁","La alfombra"],["door","⌑","El pestillo"]],choices:[["Examinar la copa","clue","glass"],["Revisar el teléfono","clue","phone"],["Examinar la ventana","clue","window"],["Buscar bajo la alfombra","clue","note"],["Examinar el pestillo","clue","thread"],["Solicitar informe preliminar","clue","report"],["Reconstruir la habitación","next","crimeTalk"]]},
+crimeTalk:{ch:1,scene:"study",loc:"ESTUDIO · 03:41",title:"Una muerte sin hora",who:"Elba",text:"El informe preliminar no fija la hora exacta. Nayara observa que el reloj se pudo manipular. Elba cree que la habitación cerrada es un truco: el pestillo podría haberse accionado desde fuera con un hilo fino.",choices:[["Nayara: «El detalle está en la ventana»","lead","Nayara"],["Elba: «Sigamos el mecanismo del pestillo»","lead","Elba"],["Pasar a los interrogatorios","next","interviews"]]},
+interviews:{ch:2,scene:"interview",loc:"SALÓN · 04:02",title:"Cinco versiones",who:"Elba",text:"Los cinco invitados permanecen en el salón. Nadie admite haber estado en el estudio. Cada declaración tiene una grieta. Elegid a quién interrogar; podéis volver a hablar con todos antes de avanzar.",choices:[["Mateo, el mayordomo","interview","Mateo"],["Vera, la expareja","interview","Vera"],["Inés, la amiga","interview","Inés"],["Bruno, el hermano","interview","Bruno"],["Saúl, el periodista","interview","Saúl"],["Cuando hayáis terminado, ir a la biblioteca","gate","library"]]},
+library:{ch:3,scene:"library",loc:"BIBLIOTECA · 04:28",title:"La estantería falsa",who:"Nayara",text:"La nota habla del invierno de 2009. En el lomo de un libro hay una muesca con el número 09. Una estantería no llega hasta el suelo: detrás se filtra una luz cálida.",hot:[["shelf","▤","La estantería"],["keyhole","⌑","El panel de latón"],["desk","▣","El escritorio antiguo"]],choices:[["Examinar la llave 09","clue","key"],["Buscar el mecanismo","puzzle","library"],["Volver a los sospechosos","back","interviews"]]},
+archive:{ch:3,scene:"basement",loc:"ARCHIVO 09 · SÓTANO",title:"El invierno de 2009",who:"Elba",text:"La escalera desemboca en una habitación sellada. Hay cajas de historias clínicas, cintas y un libro de cuentas. El polvo está removido en un único cajón.",hot:[["tape","◖","La cinta"],["ledger","▤","El libro de cuentas"],["letter","✉","La carta"],["record","▣","El cuadro de centralita"]],choices:[["Escuchar la cinta","clue","tape"],["Revisar el libro de cuentas","clue","ledger"],["Leer la carta","clue","letter"],["Examinar la centralita","clue","record"],["Revisar el cajón inferior","clue","card"],["Reconstruir lo ocurrido en 2009","next","past"]]},
+past:{ch:4,scene:"archive",loc:"ARCHIVO 09 · REVELACIÓN",title:"La cuarta persona",who:"Nayara",text:"En 2009 hubo un accidente en la antigua capilla. Adrián, Mateo y una joven llamada Clara ocultaron que una cuarta persona sobrevivió al impacto. Los pagos a la clínica continuaron durante años. La persona borrada de la fotografía no era una víctima: era quien podía contar lo sucedido.",choices:[["Buscar el nombre de Clara","puzzle","name"],["Relacionar las pruebas","next","boardScene"]]},
+boardScene:{ch:4,scene:"interview",loc:"TABLERO · 04:46",title:"La cronología imposible",who:"Elba",text:"La hora de las 03:17 fue fabricada. El informe sitúa la muerte antes de las 03:05. La llamada de las 03:26 salió de una centralita desconectada. Alguien preparó una coartada usando una línea antigua.",choices:[["Contrastar hora, teléfono e informe","logic","time"],["Contrastar archivo, llave y tarjeta","logic","access"],["Contrastar fotografía y carta","logic","past"],["Seguir con la investigación","next","second"]]},
+second:{ch:5,scene:"storm",loc:"GALERÍA NORTE · 05:03",title:"La segunda llamada",who:"Nayara",text:"El móvil de Elba vibra. Un mensaje aparece desde el número de Adrián: «Dejad de buscar. La próxima llamada será para vosotras». Un golpe retumba en el piso superior. Las luces se apagan.",choices:[["Subir juntas por la escalera","branch","together"],["Nayara avanza y Elba cubre la salida","branch","split"],["Apagar las linternas y esperar","branch","wait"]]},
+gallery:{ch:5,scene:"storm",loc:"GALERÍA NORTE · 05:07",title:"La sombra del cristal",who:"Elba",text:"Una figura cruza el reflejo de la ventana, pero el pasillo está vacío. La puerta del dormitorio de invitados está abierta. En el suelo hay una pulsera y una tarjeta de servicio.",hot:[["bracelet","◌","La pulsera"],["card","▣","La tarjeta"],["foot","⌁","La huella de barro"]],choices:[["Examinar la pulsera","clue","bracelet"],["Recoger la tarjeta","clue","card"],["Examinar la huella","clue","foot"],["Seguir la pista al sótano","next","switchboard"]]},
+switchboard:{ch:6,scene:"basement",loc:"SÓTANO · CUADRO ELÉCTRICO",title:"La extensión 09",who:"Nayara",text:"El cuadro de centralita conserva una línea que debería estar muerta. La llamada de las 03:26 se originó aquí. El panel muestra una tarjeta usada a las 02:51, aunque el registro fue borrado.",choices:[["Introducir la tarjeta de servicio","logic","card"],["Revisar el registro de llamadas","clue","record"],["Confrontar a Inés por la pulsera","interview","Inés"],["Volver al estudio","next","confront"]]},
+confront:{ch:6,scene:"study",loc:"ESTUDIO · 05:24",title:"La última coartada",who:"Elba",text:"Las piezas empiezan a encajar. Mateo conocía el mecanismo de la puerta, pero Inés tenía acceso a sedantes y al cuadro eléctrico. Saúl conocía el secreto de 2009. Bruno necesitaba dinero. Vera tenía una llave. ¿Quién podía reunir oportunidad, medios y conocimiento?",choices:[["Pedir una última declaración a Mateo","interview","Mateo"],["Pedir una última declaración a Inés","interview","Inés"],["Pedir una última declaración a Saúl","interview","Saúl"],["Preparar la acusación","next","accusation"]]},
+accusation:{ch:7,scene:"study",loc:"ESTUDIO · 05:39",title:"La verdad",who:"Nayara",text:"La policía espera vuestra conclusión. No basta con tener un motivo: hay que explicar el sedante, la hora falsa, la llamada interna y el truco de la habitación cerrada. Elegid a quién acusar y presentad las pruebas que sostienen la teoría.",choices:[["Acusar a Mateo","accuse","Mateo"],["Acusar a Vera","accuse","Vera"],["Acusar a Inés","accuse","Inés"],["Acusar a Bruno","accuse","Bruno"],["Acusar a Saúl","accuse","Saúl"]]}
+};
+const interviews={
+Mateo:{intro:"Mateo se sienta sin quitarse los guantes. «La casa tiene demasiados recuerdos. El señor Adrián no dormía desde hacía semanas».",q:[
+["¿Entró en el estudio?","No. La puerta estaba cerrada. Yo mismo comprobé el pestillo desde el pasillo."],
+["¿Por qué tiene barro en el puño?","Salí a cerrar la verja. La tormenta había soltado el pestillo del jardín."],
+["¿Qué ocurrió en 2009?","Un accidente. La familia pagó para que no se hablara. Yo solo cumplí órdenes."],
+["¿Conoce la extensión 09?","Era la línea privada del señor. Se desconectó después de la reforma."]
+]},
+Vera:{intro:"Vera no llora. Mira la puerta como si esperase que alguien entrara. «Adrián estaba convencido de que Clara había vuelto».",q:[
+["¿Por qué discutieron?","Quería confesar algo. Me pidió que me marchara y que no volviera."],
+["¿Qué sabe de Clara?","Era la hija de la enfermera de la clínica. Desapareció después del accidente."],
+["¿Tiene una llave de la casa?","La antigua. No abre las cerraduras nuevas."],
+["¿Dónde estaba a las 03:00?","En la habitación de invitados. Oí a alguien bajar al sótano."]
+]},
+Inés:{intro:"Inés mantiene las manos entrelazadas. Su pulsera tiene una mancha oscura cerca del cierre. «Soy médica. Sé reconocer una muerte. Adrián ya estaba muerto cuando lo vi».",q:[
+["¿Cuándo vio el cuerpo?","A las 03:20. No entré. Vi la puerta abierta unos centímetros."],
+["¿Por qué dijo que se marchó antes de medianoche?","No quería que supieran que volví. Adrián me llamó para hablar de Clara."],
+["¿Conoce el sedante?","Es un fármaco veterinario. No debería estar en una casa."],
+["¿Bajó al sótano?","No. El cuadro eléctrico me da miedo desde el accidente."]
+]},
+Bruno:{intro:"Bruno golpea la mesa con dos dedos. «Mi hermano podía ser cruel, pero no soy un asesino».",q:[
+["¿Le debía dinero?","Sí. Mucho. Me amenazó con denunciarme por falsificar una firma."],
+["¿Su coartada?","La gasolinera de la carretera. Compré tabaco a las 02:58."],
+["¿Vio a alguien salir?","Un coche oscuro, quizá el de Saúl. No vi la matrícula."],
+["¿Qué sabe de 2009?","Que mi padre pagó a una clínica. Adrián guardó los recibos."]
+]},
+Saúl:{intro:"Saúl coloca una grabadora sobre la mesa. «No soy el asesino. Soy el único que intentó contar la verdad».",q:[
+["¿Entró en la mansión esa noche?","Sí. Por la puerta de servicio. Quería fotografiar el archivo."],
+["¿Qué pasó en 2009?","Una niña sobrevivió al accidente. La familia la hizo desaparecer de los registros."],
+["¿Quién es Clara?","La niña. Ahora es adulta. Alguien la ha mantenido oculta."],
+["¿Grabó a Adrián?","Sí. En la cinta dice que iba a confesarlo todo."]
+]}
+};
+function render(){
+let n=nodes[S.node];if(!n)return;
+$("chapterHead").textContent="CAPÍTULO "+n.ch+" / 7";$("chapter").textContent="CAPÍTULO "+n.ch+" DE 7";
+$("percent").textContent=Math.round((Object.keys(nodes).indexOf(S.node)+1)/Object.keys(nodes).length*100)+"%";
+$("bar").style.width=$("percent").textContent;
+$("scene").dataset.scene=n.scene;$("location").textContent=n.loc;$("sceneTitle").textContent=n.title;
+let who=(n.who==="Nayara"||n.who==="Elba")?S.lead:(n.who||S.lead);$("speaker").textContent=who;$("portrait").textContent=who==="Nayara"?"N":who==="Elba"?"E":who[0];
+$("text").textContent=n.text;$("clueCount").textContent=S.clues.length+" pruebas";
+let hs=$("hotspots");hs.innerHTML="";
+(n.hot||[]).forEach((h,i)=>{let b=document.createElement("button");b.className="hotspot";b.textContent=h[1];b.title=h[2];let pos=[["16%","28%"],["48%","32%"],["78%","24%"],["65%","62%"],["30%","63%"]][i%5];b.style.left=pos[0];b.style.top=pos[1];b.onclick=()=>hotspot(h[0]);hs.appendChild(b)});
+let c=$("choices");c.innerHTML="";
+n.choices.forEach(([label,type,val])=>{let b=document.createElement("button");b.className="choice";b.textContent=label;b.onclick=()=>act(type,val);c.appendChild(b)});
+$("sound").textContent="Sonido: "+(S.sound?"activado":"desactivado");save();
+}
+function hotspot(id){let map={door:["Pestillo","La cerradura está echada desde dentro. Hay una marca fina en la placa, como si algo hubiera pasado entre la puerta y el marco."],portrait:["Retrato familiar","Adrián aparece junto a sus padres. Una zona del cristal está limpia: alguien retiró una fotografía pequeña."],shelf:["Estantería","El tercer estante tiene marcas de dedos recientes. Los libros están colocados al revés."],keyhole:["Panel de latón","Una cerradura antigua con tres ruedas y un pequeño hueco para una llave."],desk:["Escritorio","En el cajón hay polvo, excepto en el espacio de un objeto rectangular."],carpet:["Alfombra","La alfombra está levantada junto al escritorio. Debajo hay un papel doblado."],shelf2:["Estante","La madera suena hueca detrás del tomo de 2009."]};if(id==="carpet"){addClue("note");return}modalText(...(map[id]||["Detalle","No parece relevante todavía."]))}
+function act(type,val){
+if(type==="next"){S.node=val;S.chapter=nodes[val]?.ch||S.chapter;note("Avance: "+(nodes[val]?.title||val));render();return}
+if(type==="clue"){addClue(val);return}
+if(type==="modal"){modalText("Mensaje de voz",val);return}
+if(type==="talk"){S.talked.push(val);let line=val==="Mateo"?"Mateo":val;modalText(line,"«El señor Adrián tenía enemigos, pero todos estaban dentro de esta casa». Mateo evita mirar a Nayara. <br><br>Podéis volver a hablar con él durante los interrogatorios.");return}
+if(type==="lead"){S.lead=val;S.flags.leadChosen=val;note("La investigadora que dirige la siguiente fase es "+val+".");S.node="interviews";render();return}
+if(type==="back"){S.node=val;render();return}
+if(type==="interview"){interview(val);return}
+if(type==="gate"){let missing=Object.keys(suspectInfo).filter(x=>!S.talked.includes(x));if(missing.length){modalText("Quedan testimonios pendientes","Antes de entrar en la biblioteca, interrogad al menos a todos los sospechosos. Faltan: "+missing.join(", ")+".");return}S.node=val;render();return}
+if(type==="puzzle"){if(val==="library"){if(!S.clues.includes("key")&&!S.clues.includes("note")){modalText("Panel bloqueado","Necesitáis encontrar la llave 09 o la nota escondida antes de forzar el mecanismo.");return}if(!S.flags.archiveOpen){S.flags.archiveOpen=true;note("La estantería falsa se abre con la llave 09. El panel conduce al sótano.");}S.node="archive";render();return}
+if(val==="name"){if(S.clues.includes("photo")&&S.clues.includes("letter")){S.flags.clara=true;modalText("Nombre recuperado","La cuarta persona era Clara Mena. En la carta, Adrián escribió que volvería para reclamar lo que le habían quitado.");}else modalText("Registro incompleto","Necesitáis la fotografía y la carta para reconstruir el nombre.");return}}
+if(type==="logic"){let ok=(val==="time"&&S.clues.includes("clock")&&S.clues.includes("report")&&S.clues.includes("phone"))||(val==="access"&&S.clues.includes("key")&&S.clues.includes("card")&&S.clues.includes("record"))||(val==="past"&&S.clues.includes("photo")&&S.clues.includes("letter")&&S.clues.includes("ledger"));if(ok){S.flags[val]=true;note("Conexión confirmada: "+val);modalText("Conexión confirmada","Las pruebas se sostienen entre sí. Habéis añadido una conexión sólida al tablero.");}else modalText("Faltan pruebas","La hipótesis todavía no está respaldada. Reunid las tres pruebas relacionadas y volved a intentarlo.");return}
+if(type==="branch"){S.flags.escape=val;if(val==="split")S.flags.risk=true;if(val==="wait")S.flags.cautious=true;note("Decisión durante el apagón: "+val);S.node="gallery";render();return}
+if(type==="accuse"){finish(val);return}
+}
+function interview(name){
+S.talked=[...new Set([...S.talked,name])];
+let data=interviews[name],html=`<p class="muted">${data.intro}</p><div class="tag">INTERROGATORIO · ${name.toUpperCase()}</div>`;
+data.q.forEach(([q,a],i)=>{html+=`<div class="listrow"><b>${q}</b><br>${a}</div>`});
+let special="";
+if(name==="Mateo"&&S.clues.includes("thread"))special="<p class='muted'>Al mencionar la fibra azul, Mateo mira instintivamente su puño izquierdo. «Ese abrigo lo lleva todo el servicio», responde.</p>";
+if(name==="Inés"&&S.clues.includes("glass"))special="<p class='muted'>Al mostrarle la copa, Inés identifica el sedante sin acercarse. Dice que el frasco se guardaba en el botiquín del sótano.</p>";
+if(name==="Saúl"&&S.clues.includes("tape"))special="<p class='muted'>Saúl reconoce la voz de la cinta: es la de Inés, pero insiste en que la grabación está editada.</p>";
+html+=special+`<button class="btn" onclick="closePanel();render()">Volver a la sala</button>`;
+$("modalTitle").textContent="Interrogatorio: "+name;$("modalBody").innerHTML=html;$("modal").classList.add("show");save();
+}
+function finish(name){
+let core=S.clues.includes("glass")&&S.clues.includes("phone")&&S.clues.includes("record")&&S.clues.includes("tape");
+let proof=S.clues.length>=8&&S.flags.time&&S.flags.access;
+let title,body;
+if(name==="Inés"&&core&&proof){
+title="La verdad bajo llave";
+body="Inés Mena mató a Adrián. No actuó por dinero: Adrián había decidido revelar que Clara, su hermana, sobrevivió al accidente de 2009 y que Inés había falsificado informes para mantenerla oculta. Inés utilizó el sedante, adelantó la muerte y manipuló la escena. La hora 03:17 fue una distracción; la llamada de las 03:26 se activó desde la vieja centralita del sótano. El truco de la habitación cerrada fue un hilo pasado por el pestillo y retirado desde el pasillo. Mateo ayudó a ocultar el accidente antiguo, pero no cometió el asesinato. Nayara y Elba han resuelto el caso con pruebas suficientes.";
+}else if(name==="Inés"&&core){
+title="La acusación sin cierre";
+body="Habéis señalado a Inés, pero no podéis demostrar cómo se fabricó la llamada ni cómo se abrió la habitación. La policía la retiene para interrogarla, aunque la defensa podrá desmontar parte de vuestra teoría. El expediente queda abierto.";
+}else{
+title="El sospechoso equivocado";
+body="La persona acusada tenía un motivo para mentir, pero no encaja con el sedante y la llamada de la extensión 09. Mientras la policía se la lleva, el teléfono de Adrián vuelve a encenderse: «No habéis entendido lo que pasó en 2009». El verdadero responsable sigue libre.";
+}
+if(S.flags.risk)body+=" Durante el apagón, la separación de las investigadoras permitió que alguien escapara por la galería norte.";
+if(S.flags.cautious)body+=" La decisión de esperar evitó una persecución, pero dejó sin identificar a la figura del pasillo.";
+$("endTitle").textContent=title;$("endText").textContent=body;$("endStats").innerHTML=`<p>Pruebas reunidas: ${S.clues.length} · Sospechosos interrogados: ${S.talked.length}/5 · Conexiones verificadas: ${["time","access","past"].filter(x=>S.flags[x]).length}/3</p>`;
+S.ending=title;save();show("ending");
+}
+$("continue").style.display=localStorage.getItem("exp09complete")?"inline-block":"none";
+</script>
+</body></html>

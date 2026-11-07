@@ -1,0 +1,25 @@
+EXPEDIENTE 09 — LA ÚLTIMA LLAMADA
+Edición ampliada jugable para iPhone.
+
+CONTENIDO
+- Siete capítulos narrativos con progresión y decisiones.
+- Nayara y Elba como investigadoras intercambiables.
+- Cinco sospechosos con interrogatorios y respuestas.
+- Escenarios interactivos con puntos de interés.
+- Inventario de pruebas, diario, mapa y tablero de conexiones.
+- Puzle de acceso al archivo, conexiones de evidencias y finales alternativos.
+- Guardado local automático.
+- Efectos sonoros sintéticos sencillos activables/desactivables.
+
+PARA PUBLICAR EN GITHUB PAGES
+1. Descomprime el ZIP.
+2. Sube index.html y LEEME.txt a la raíz de tu repositorio.
+3. En GitHub abre Settings > Pages.
+4. En Build and deployment elige Deploy from a branch.
+5. Selecciona la rama main y la carpeta /(root), guarda.
+6. Abre la URL publicada desde Safari en el iPhone.
+7. En Safari pulsa Compartir > Añadir a pantalla de inicio.
+
+IMPORTANTE
+Es una aventura gráfica web, no una app nativa compilada de App Store.
+Los fondos y la iluminación son gráficos CSS originales; los efectos sonoros se sintetizan en el dispositivo. No incluye todavía voces grabadas ni modelos 3D. El guardado se realiza en el almacenamiento local del navegador, por lo que conviene no borrar los datos de Safari mientras haya una partida.
